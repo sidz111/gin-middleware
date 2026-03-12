@@ -32,3 +32,17 @@ func RateLimitter() gin.HandlerFunc {
 		}
 	}
 }
+
+func RecoverMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		defer func() {
+			if err := recover(); err != nil {
+				c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+					"error": err,
+				})
+				c.Abort()
+			}
+		}()
+		c.Next()
+	}
+}
