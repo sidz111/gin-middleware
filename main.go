@@ -11,8 +11,17 @@ func main() {
 	r.Use(middlewares.MiddlewareName())
 
 	r.GET("hello", middlewares.MiddlewareName(), func(c *gin.Context) {
+		token := c.GetHeader("authorization")
+		if token == "" {
+			c.AbortWithStatusJSON(401, gin.H{
+				"error": "Unauthorized",
+			})
+			return
+		}
+		c.Next()
 		c.JSON(200, gin.H{
 			"message": "hello",
+			"token":   token,
 		})
 
 	})
