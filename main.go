@@ -19,9 +19,11 @@ func main() {
 			return
 		}
 		c.Next()
+		UserId, _ := c.Get("UserId")
 		c.JSON(200, gin.H{
 			"message": "hello",
 			"token":   token,
+			"user_id": UserId,
 		})
 
 	})

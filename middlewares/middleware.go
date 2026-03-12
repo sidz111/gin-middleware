@@ -8,6 +8,7 @@ import (
 
 func MiddlewareName() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		c.Set("UserId", 3)
 		fmt.Println("Middleware Started")
 		c.Next()
 		fmt.Println("middleware Stoped")
