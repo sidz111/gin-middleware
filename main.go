@@ -10,7 +10,7 @@ func main() {
 
 	r.Use(middlewares.MiddlewareName())
 
-	r.GET("hello", func(c *gin.Context) {
+	r.GET("hello", middlewares.MiddlewareName(), func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "hello",
 		})
