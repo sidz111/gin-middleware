@@ -10,7 +10,7 @@ func main() {
 
 	r.Use(middlewares.MiddlewareName())
 
-	r.GET("hello", middlewares.MiddlewareName(), func(c *gin.Context) {
+	r.GET("hello", middlewares.MiddlewareName(), middlewares.RateLimitter(), func(c *gin.Context) {
 		token := c.GetHeader("authorization")
 		if token == "" {
 			c.AbortWithStatusJSON(401, gin.H{
